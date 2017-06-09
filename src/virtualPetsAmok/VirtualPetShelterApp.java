@@ -21,8 +21,9 @@ public class VirtualPetShelterApp {
 				System.out.println(currentPet.name + "\t\t" 
 			+ currentPetSpecies + "\t\t" 
 			+ currentpetLifeForm + "\t\t" 
-			+ currentPet.hungerLevel + "\t\t" + currentPet.thirstLevel
-						+ "\t\t" + currentPet.boredomLevel);
+			+ currentPet.hungerLevel + "\t\t" 
+			+ currentPet.thirstLevel + "\t\t" 
+			+ currentPet.boredomLevel);
 			}
 			// Asks for user input
 			System.out.println("");
@@ -77,9 +78,9 @@ public class VirtualPetShelterApp {
 				System.out.println("There's pleanty of room. Enter the new pet's name: ");
 				String name = input.nextLine();
 				System.out.println("");
-				System.out.println("Enter the new pet's type (dog, cat):");
+				System.out.println("Enter pet's species as a dog or cat):");
 				String petSpecies = input.nextLine();
-				System.out.println("Enter if pet is organic or robotic:");
+				System.out.println("Enter pet's lifeform as organic or robotic:");
 				String petLifeForm = input.nextLine();
 				VirtualPet x = new VirtualPet(name, petSpecies, petLifeForm);
 				shelter.intake(x);

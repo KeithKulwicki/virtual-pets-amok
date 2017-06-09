@@ -6,14 +6,17 @@ public class VirtualPet {
 
 	private Random generator = new Random();
 
-	// include appropriate instance variable(s) to store the pets who reside at
-	// the shelter
+	// include appropriate instance variable(s) to store the pets who reside at the shelter
 	String name;
 	String lifeForm;
 	String species;
 	int hungerLevel;
 	int thirstLevel;
 	int boredomLevel;
+	int cageCleanliness; //organic dogs
+	int litterBoxCleanliness; // organic cats
+	int powerLevel; // robot animals
+	int oilLevel; // robot animals
 
 	VirtualPet(String nameParam, String petLifeFormParam, String petSpeciesParam) {
 		name = nameParam;
@@ -29,6 +32,12 @@ public class VirtualPet {
 		hungerLevel = hungerParam;
 		thirstLevel = thirstParam;
 		boredomLevel = boredomParam;
+		int litterBoxParam = 0;
+		litterBoxCleanliness = litterBoxParam;
+		int powerParam = 0;
+		powerLevel = powerParam;
+		int oilParam = 0;
+		oilLevel = oilParam;
 	}
 
 	void tick() {
@@ -49,7 +58,22 @@ public class VirtualPet {
 	void rename(String newName) {
 		name = newName;
 	}
-
+// 	++ 	Introduce methods that allow for:
+// 		+	robotic pets
+//		+	walking dogs, decreasing the likelihood that organic dogs will soil their cages, 
+//			while increasing happiness in all dogs
+	
+//	Walk Dog
+	int walkDog() {
+	hungerLevel += 5; // walk = more hungry
+	thirstLevel += 5; // walk = more thirsty
+	int happiness = 5; // walk = more happiness	
+	cageCleanliness += 5; // walk = more cage cleanliness
+	int playLevel;
+	return playLevel = 0; // walk = play = 0
+	}
+	
+	
 	// Feeding
 	int getHunger() {
 		return hungerLevel;
@@ -100,7 +124,41 @@ public class VirtualPet {
 
 	@Override
 	public String toString() {
-		return ("[" + name + "] " + lifeForm + species);
+		return ("[" + name + "] " + "[" + lifeForm + "] " + "[" + species + "] ");
+	}
+
+	public String getname() {
+		return name;
+	}
+
+	public String getlifeForm() {
+		return lifeForm;
+	}
+
+	public String getspecies() {
+		return species;
+	}
+
+	public int gethungerLevel() {
+		return hungerLevel;
+	}
+
+	public int getthirstLevel() {
+		return thirstLevel;
+	}
+
+	public int boredomLevel() {
+		return boredomLevel;
+	}
+
+	public int getpowerLevel() {
+		int powerLevel = 0;
+		return powerLevel;
+	}
+
+	public int getoilLevel() {
+		int oilLevel = 0;
+		return oilLevel;
 	}
 
 }
