@@ -1,40 +1,40 @@
 package virtualPetsAmok;
 
-public class RoboCat extends VirtualPet {
-	public RoboCat() {
-		super("beta", "cat", "organic", 0, 0, 0);
-	}
-	@Override
-	public String getname() {
-		return "Beta";}
-	
-	@Override
-	public String getlifeForm() {
-	return "Robotic";}
-	
-	@Override
-	public String getspecies() {
-	return "Cat";}
-	
-	@Override
-	public int getpowerLevel() {
-		return 0;}
-	
-	@Override
-	public int getoilLevel() {
-		return 0;}
-	
-	
-	@Override
-	public int gethungerLevel() {
-		return 0;}
-	
-	@Override
-	public int getthirstLevel() {
-	return 0;}	
-	
-	@Override
-	public int boredomLevel(){
-		return 0;}	
+public class RoboCat extends Cat implements RoboPet{
 
-}
+	int oilLevel;
+	
+	public RoboCat(String nameParam, String descriptionParam) {
+		super(nameParam, descriptionParam);
+		oilLevel =  50 ;
+	}
+
+	@Override
+	public void play() {
+		happiness += 5;
+		oilLevel -=  5 ;
+	}
+
+	@Override  
+	public void tick() {
+		happiness -= (5 + generateRandom());
+		oilLevel -= (5 + generateRandom());	
+	}
+
+
+	@Override
+	public void oilPet() {
+		oilLevel += 50;
+	}
+
+	@Override
+	public int getOilLevel() {
+		return oilLevel;		
+	}
+
+	@Override
+		public void recharge() {
+			happiness += 5;
+			health += 5;
+		}		
+	}

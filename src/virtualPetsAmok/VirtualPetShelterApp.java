@@ -1,118 +1,209 @@
 package virtualPetsAmok;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 public class VirtualPetShelterApp {
-	public static void main(String[] args, String currentPetSpecies, String currentpetLifeForm) {
 
-		Scanner input = new Scanner(System.in);
+	public static void main(String[] args) {
+		
+		System.out.println("Thank you for volunteering at SebMax Virtual Pet Shelter!");
+		System.out.println("Pet Status:");
+
 		VirtualPetShelter shelter = new VirtualPetShelter();
-		System.out.println(" ");
-		System.out.println("Thank you for volunteering at SebMax, a NO KILL Virtual Animal Shelter!");
-		boolean exit = false;
-		do {
-			System.out.println("");
-			System.out.println("Pet Status: ");
-			System.out.println("Name\t\t\tSpecies\t\tLifeFormHunger\t\tThirst\t\tBoredom\t");
+		Scanner input = new Scanner(System.in);
+
+		OrganicPet alpha = new OrganicDog("Alpha", "Pit Bull");
+		shelter.intake(alpha);
+		RoboPet bravo = new RoboDog("Bravo", "Robo-dog");
+		shelter.intake(bravo);
+		OrganicPet charlie = new OrganicCat("Charlie", "Maine Coon");
+		shelter.intake(charlie);
+		RoboPet delta = new RoboCat("Delta", "Robo-cat");
+		shelter . intake (delta);
+
+		boolean quit = false;
+
+		do {//test for litterbox overflow
+			if (shelter.getLitterbox() >= 100) {
+				System.out.println("*** Clean the organic cats' litterbox. It's having a negatively health impact ***");
+				for (VirtualPet pet : shelter.pets()) {
+					if (pet instanceof OrganicCat) {
+						((OrganicCat) pet).depleteHealth();
+					}
+				}
+			}//test each dog cage messiness 
+			for (VirtualPet pet : shelter.pets()) {
+				if (pet instanceof OrganicDog) {
+
+					if (((OrganicDog) pet).getCageDirty() >= 100) {
+						System.out.println("*** Clean organic dog " + pet.getName()
+								+ "'s cage. It's having a negative health impact ***");
+						((OrganicDog) pet).depleteHealth();
+					}
+				}
+			}//test robotic pets for maintenance issues
+			for (VirtualPet pet : shelter.pets()) {
+				if (pet instanceof RoboCat) {
+
+					if (((RoboPet) pet).getOilLevel() <= 10) {
+						System.out.println("*** Oil robo-pet " + pet.getName()
+								+ ". It's having a negative health impact ***");
+						 pet.depleteHealth();
+					}
+				}
+			}
+
+
+			System.out.println("Name\t|Happy\t|Health\t|Hunger\t|Thirst\t|OilLvl\t|CageMess");
+			System.out.println("--------|-------|-------|-------|-------|-------|-------|");
 
 			for (VirtualPet currentPet : shelter.pets()) {
-				System.out.println(currentPet.name + "\t\t" 
-			+ currentPetSpecies + "\t\t" 
-			+ currentpetLifeForm + "\t\t" 
-			+ currentPet.hungerLevel + "\t\t" 
-			+ currentPet.thirstLevel + "\t\t" 
-			+ currentPet.boredomLevel);
+				System.out.print(
+			currentPet.getName() + "\t|"  
+			+ ((VirtualPet) currentPet).getHappiness() + "\t|"
+			+ ((VirtualPet) currentPet).getHealth() + "\t|");
+				if (currentPet instanceof OrganicPet) {
+					System.out.print(((OrganicPet) currentPet).getHunger() + "\t|"
+							+ ((OrganicPet) currentPet).getThirst() + "\t|N/A\t|");
+				} else if (currentPet instanceof RoboPet) {
+					System.out.print("N/A\t|N/A\t|" + ((RoboPet) currentPet).getOilLevel() + "\t|");
+				}
+				if (currentPet instanceof OrganicDog) {
+					System.out.print("" + ((OrganicDog) currentPet).getCageDirty() + "\t|");
+				} else {
+					System.out.print("N/A\t|");
+				}
+				System.out.print("\n");
+
 			}
-			// Asks for user input
-			System.out.println("");
-			System.out.println("What would you like to do next?");
-			System.out.println("1. Feed the pets ");
-			System.out.println("2. Water the pets ");
-			System.out.println("3. Play with a pet ");
-			System.out.println("4. Adopt a pet ");
-			System.out.println("5. Admit a homeless pet ");
-			System.out.println("6. Ignore pets ");
-			System.out.println("7. Leave SebMax Virtual Pet Shelter");
-			String response = input.next();
-			input.nextLine();
-			// Writes output to the console
+			
+			System.out.println("Dirty litterbox level: " + shelter.getLitterbox());
+			System.out.println("\nSelect what would you like to do from list below:");
+			System.out.println("1. Feed all organic pets");
+			System.out.println("2. Water all organic pets");
+			System.out.println("3. Play with a pet");
+			System.out.println("4. Adopt a pet");
+			System.out.println("5. Admit a pet");
+			System.out.println("6. Clean organic dog cages");
+			System.out.println("7. Clean organic cat litterbox");
+			System.out.println("8. Walk Dogs");
+			System.out.println("9. Maintain all RoboPets");
+			System.out.println("10. Ignore pets");
+			System.out.println("11. Exit");
+			String response = input.nextLine();
+
 			switch (response) {
-			case "1": // Feed all of the pets in the shelter
-				shelter.feedPets();
-				System.out.println("");
-				System.out.println("Thanks for feeding the pets.");
+			case "1":
+				shelter.feedAllOrganic();
+				System.out.println("All organic pets are fed!");
 				break;
-			case "2": // Water all of the pets in the shelter
-				shelter.waterPets();
-				System.out.println("");
-				System.out.println("Thanks for watering the pets.");
+			case "2":
+				shelter.waterAllOrganic();
+				System.out.println("All organic pets are watered!");
 				break;
-			case "3": // plays (or performs some other interaction(s)) with an
-						// individual pet in the shelter
-				System.out.println("");
-				System.out.println("Here's the list of available pets with which to play:");
+			case "3": // play
+				System.out.println("Play with a pet.");
 				displayPets(shelter);
-				System.out.println("");
-				System.out.println("Enter pet name with which you would like to play?");
+				System.out.println("\nSelect from list of pets available for play.");
 				String petName = input.nextLine();
-				shelter.playWithPets(shelter.getPet(petName));
-				System.out.println("");
-				System.out.println("Enjoy playing with " + petName + ". ");
+				shelter.playWithOnePet(shelter.getPet(petName));
+				System.out.println("Enjoy playing with " + shelter.getPet(petName).getName() + ". ");
 				break;
-			case "4": // Allow adoption of a pet in the shelter
-				System.out.println("");
-				System.out.println("Here's the list of pets available for adoption:");
+			case "4": // adopt
+				System.out.println("AWESOME! Adopt a pet.");
 				displayPets(shelter);
-				System.out.println("");
-				System.out.println("Enter pet name which you are giving a home?");
+				System.out.println("Select from list of pets avaiable for adoption.");
 				String nameToAdopt = input.nextLine();
-				shelter.adopt(nameToAdopt);
-				System.out.println("");
-				System.out.println("Adopting a pet is AWESOME! Thak you! Enjoy your Forever Home, " + nameToAdopt
-						+ ". We'll miss you!");
+				VirtualPet pet = shelter.getPet(nameToAdopt);
+				shelter.adoptPet(pet);
+				System.out.println("Enjoy your new Forever Home, " + pet.getName() + ". We'll miss you!");
 				break;
-			case "5": // Allow intake of a homeless pet
-				System.out.println("");
-				System.out.println("There's pleanty of room. Enter the new pet's name: ");
-				String name = input.nextLine();
-				System.out.println("");
-				System.out.println("Enter pet's species as a dog or cat):");
-				String petSpecies = input.nextLine();
-				System.out.println("Enter pet's lifeform as organic or robotic:");
-				String petLifeForm = input.nextLine();
-				VirtualPet x = new VirtualPet(name, petSpecies, petLifeForm);
-				shelter.intake(x);
-				System.out.println("");
-				System.out.println("Don't worry. We will take good care of " + x.getName());
+			case "5":// intake
+				System.out.println("We have more than enough room! Enter lifeform (organic or robotic):");
+				String lifeform = input.next();
+				if (lifeform.equalsIgnoreCase("organic")) {
+					System.out.println("Enter organic pet's species (cat or dog):");
+					String species = input.next();
+					input.nextLine();
+					if (species.equalsIgnoreCase("dog")) {
+						System.out.println("Enter organic dog's name:");
+						String name = input.nextLine();
+						System.out.println("Enter organic dog's brief description:");
+						String description = input.nextLine();
+						OrganicPet od = new OrganicDog(name, description);
+						shelter.intake(od);
+						System.out.println("Welcome, " + od.getName()+"!");
+					} else if (species.equalsIgnoreCase("cat")) {
+						System.out.println("Enter organic cat's name:");
+						String name = input.nextLine();
+						System.out.println("Enter organic cat's brief description:");
+						String description = input.nextLine();
+						OrganicPet oc = new OrganicCat(name, description);
+						shelter.intake(oc);
+						System.out.println("Welcome, " + oc.getName()+"!");
+					}
+
+				} else if (lifeform.equalsIgnoreCase("robotic")) {
+					System.out.println("Enter robo-pet's species (cat or dog):");
+					String species = input.next();
+					input.nextLine();
+
+					if (species.equalsIgnoreCase("dog")) {
+						System.out.println("Enter robo-dog's name:");
+						String name = input.nextLine();
+						System.out.println("Enter robo-dog's brief description:");
+						String description = input.nextLine();
+						RoboPet rd = new RoboDog(name, description);
+						shelter.intake(rd);
+						System.out.println("Welcome, " + rd.getName()+"!");
+
+					} else if (species.equalsIgnoreCase("cat")) {
+						System.out.println("Enter robo-cat's name:");
+						String name = input.nextLine();
+						System.out.println("Enter robo-cat's brief description:");
+						String description = input.nextLine();
+						RoboPet rc = new RoboCat(name, description);
+						shelter.intake(rc);
+						System.out.println("Welcome, " + rc.getName()+"!");
+					}
+				}
 				break;
-			case "6": // Ignore pets
-				System.out.println("");
+			case "6":
+				shelter.cleanDogCages();
+				System.out.println("All the organic dog cages are clean!");
+				break;
+			case "7":
+				shelter.cleanLitterbox();
+				System.out.println("The litterbox is clean!");
+				break;
+			case "8":
+				shelter.walkDogs();
+				System.out.println("All the dogs walked!");
+				break;
+			case "9":
+				shelter.maintainAllRoboPets();
+				System.out.println("All robo-pets maintained!");
+				break;
+			case "10":
+				// tick
 				System.out.println("Are you looking for anything in particular?");
 				break;
-			case "7": // End
-				System.out.println("");
-				System.out.println("Thanks for visiting SebMax Virtual Pet Shelter. Ya'll come back now, Y'hear??");
+			case "11":
+				System.out.println("Y'all come back now, y'hear?");
 				System.exit(0);
-			default: // Invalid user input
-				System.out.println("");
-				System.out.println("*** Please enter a valid selection ***");
+			default:
+				System.out.println("Invalid entry. Try again.");
 				break;
 			}
-			shelter.tick(); // calls VirtualPetShelter's tick method after each
-							// interaction
-		} while (!exit);
-		input.close();
+			shelter.tickAllPets();
 
+		} while (!quit);
+		input.close();
 	}
 
-	private static void displayPets(VirtualPetShelter y) {
-		Collection<VirtualPet> listOfPets = new ArrayList<>();
-		listOfPets = y.pets();
-		for (VirtualPet currentPet : listOfPets) {
-			System.out.println(currentPet);
+	private static void displayPets(VirtualPetShelter shelter) {
+		for (VirtualPet currentPet : shelter.pets()) {
+			System.out.println("" + currentPet);
 		}
-
 	}
 }
