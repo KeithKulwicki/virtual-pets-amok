@@ -9,7 +9,7 @@ public class Cat extends VirtualPet {
 	@Override
 	public void play() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -1,8 +1,8 @@
 package virtualPetsAmok;
 
-import  java.util.Collection ;
-import  java.util.HashMap ;
-import  java.util.Map ;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VirtualPetShelter {
 	// Map of pets and attributes
@@ -52,7 +52,7 @@ public class VirtualPetShelter {
 		shelterPets.put(pet.getName(), (VirtualPet) pet);
 	}
 
-	public  void  intake (OrganicPet  pet) {
+	public void intake(OrganicPet pet) {
 		shelterPets.put(pet.getName(), (VirtualPet) pet);
 	}
 
@@ -74,18 +74,18 @@ public class VirtualPetShelter {
 		litterbox += 5;
 	}
 
-	// Tick method 
-	void  tickAllPets () {
+	// Tick method
+	void tickAllPets() {
 		for (VirtualPet pet : pets()) {
 			if (pet instanceof OrganicCat) {
 				litterbox += ((OrganicCat) pet).tick();
-				
-			} 
-			if (!(pet instanceof OrganicCat)) 
-				if (pet instanceof OrganicDog){
-				((OrganicDog) pet).tick();
+
+			}
+			if (!(pet instanceof OrganicCat))
+				if (pet instanceof OrganicDog) {
+					((OrganicDog) pet).tick();
 				}
-				if (pet instanceof RoboPet){
+			if (pet instanceof RoboPet) {
 				((RoboPet) pet).tick();
 			}
 		}

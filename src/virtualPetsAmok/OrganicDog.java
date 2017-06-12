@@ -8,7 +8,7 @@ public class OrganicDog extends Dog implements OrganicPet {
 
 	public OrganicDog(String newName, String newDescription) {
 		super(newName, newDescription);
-		cageDirty =  50 ;
+		cageDirty = 50;
 		hunger = 50;
 		thirst = 50;
 	}
@@ -16,18 +16,18 @@ public class OrganicDog extends Dog implements OrganicPet {
 	public void feed() {
 		hunger -= 25;
 		happiness += 10;
-		cageDirty +=  10 ;
+		cageDirty += 10;
 	}
 
 	public void water() {
 		thirst -= 25;
 		happiness += 10;
-		cageDirty +=  10 ;
+		cageDirty += 10;
 	}
 
 	@Override
 	public void walk() {
-		cageDirty -=25 ;
+		cageDirty -= 25;
 		happiness += 25;
 		health += 10;
 		hunger += 5;
@@ -42,7 +42,8 @@ public class OrganicDog extends Dog implements OrganicPet {
 		health += 10;
 	}
 
-	@Override //I'm only returning a value because you said to...it's never used in the shelter.
+	@Override // I'm only returning a value because you said to...it's never
+				// used in the shelter.
 	public int tick() {
 		hunger += (5 + generateRandom());
 		thirst += (5 + generateRandom());
@@ -61,7 +62,7 @@ public class OrganicDog extends Dog implements OrganicPet {
 	}
 
 	public void cleanCage() {
-		cageDirty -= 25 ;
+		cageDirty -= 25;
 		happiness -= 25;
 		health -= 25;
 	}

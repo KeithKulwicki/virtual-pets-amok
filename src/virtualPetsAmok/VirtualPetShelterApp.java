@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class VirtualPetShelterApp {
 
 	public static void main(String[] args) {
-		
+
 		System.out.println("Thank you for volunteering at SebMax Virtual Pet Shelter!");
 		System.out.println("Pet Status:");
 
@@ -19,11 +19,11 @@ public class VirtualPetShelterApp {
 		OrganicPet charlie = new OrganicCat("Charlie", "Maine Coon");
 		shelter.intake(charlie);
 		RoboPet delta = new RoboCat("Delta", "Robo-cat");
-		shelter . intake (delta);
+		shelter.intake(delta);
 
 		boolean quit = false;
 
-		do {//test for litterbox overflow
+		do {// test for litterbox overflow
 			if (shelter.getLitterbox() >= 100) {
 				System.out.println("*** Clean the organic cats' litterbox. It's having a negatively health impact ***");
 				for (VirtualPet pet : shelter.pets()) {
@@ -31,7 +31,7 @@ public class VirtualPetShelterApp {
 						((OrganicCat) pet).depleteHealth();
 					}
 				}
-			}//test each dog cage messiness 
+			} // test each dog cage messiness
 			for (VirtualPet pet : shelter.pets()) {
 				if (pet instanceof OrganicDog) {
 
@@ -41,27 +41,24 @@ public class VirtualPetShelterApp {
 						((OrganicDog) pet).depleteHealth();
 					}
 				}
-			}//test robotic pets for maintenance issues
+			} // test robotic pets for maintenance issues
 			for (VirtualPet pet : shelter.pets()) {
 				if (pet instanceof RoboCat) {
 
 					if (((RoboPet) pet).getOilLevel() <= 10) {
-						System.out.println("*** Oil robo-pet " + pet.getName()
-								+ ". It's having a negative health impact ***");
-						 pet.depleteHealth();
+						System.out.println(
+								"*** Oil robo-pet " + pet.getName() + ". It's having a negative health impact ***");
+						pet.depleteHealth();
 					}
 				}
 			}
-
 
 			System.out.println("Name\t|Happy\t|Health\t|Hunger\t|Thirst\t|OilLvl\t|CageMess");
 			System.out.println("--------|-------|-------|-------|-------|-------|-------|");
 
 			for (VirtualPet currentPet : shelter.pets()) {
-				System.out.print(
-			currentPet.getName() + "\t|"  
-			+ ((VirtualPet) currentPet).getHappiness() + "\t|"
-			+ ((VirtualPet) currentPet).getHealth() + "\t|");
+				System.out.print(currentPet.getName() + "\t|" + ((VirtualPet) currentPet).getHappiness() + "\t|"
+						+ ((VirtualPet) currentPet).getHealth() + "\t|");
 				if (currentPet instanceof OrganicPet) {
 					System.out.print(((OrganicPet) currentPet).getHunger() + "\t|"
 							+ ((OrganicPet) currentPet).getThirst() + "\t|N/A\t|");
@@ -76,7 +73,7 @@ public class VirtualPetShelterApp {
 				System.out.print("\n");
 
 			}
-			
+
 			System.out.println("Shelter Litter Box Soil Level: " + shelter.getLitterbox());
 			System.out.println("\nSelect what would you like to do from list below:");
 			System.out.println("1. Feed all organic pets");
@@ -132,7 +129,7 @@ public class VirtualPetShelterApp {
 						String description = input.nextLine();
 						OrganicPet od = new OrganicDog(name, description);
 						shelter.intake(od);
-						System.out.println("Welcome, " + od.getName()+"!");
+						System.out.println("Welcome, " + od.getName() + "!");
 					} else if (species.equalsIgnoreCase("cat")) {
 						System.out.println("Enter organic cat's name:");
 						String name = input.nextLine();
@@ -140,7 +137,7 @@ public class VirtualPetShelterApp {
 						String description = input.nextLine();
 						OrganicPet oc = new OrganicCat(name, description);
 						shelter.intake(oc);
-						System.out.println("Welcome, " + oc.getName()+"!\n");
+						System.out.println("Welcome, " + oc.getName() + "!\n");
 					}
 
 				} else if (lifeform.equalsIgnoreCase("robotic")) {
@@ -155,7 +152,7 @@ public class VirtualPetShelterApp {
 						String description = input.nextLine();
 						RoboPet rd = new RoboDog(name, description);
 						shelter.intake(rd);
-						System.out.println("Welcome, " + rd.getName()+"!\n");
+						System.out.println("Welcome, " + rd.getName() + "!\n");
 
 					} else if (species.equalsIgnoreCase("cat")) {
 						System.out.println("Enter robo-cat's name:");
@@ -164,7 +161,7 @@ public class VirtualPetShelterApp {
 						String description = input.nextLine();
 						RoboPet rc = new RoboCat(name, description);
 						shelter.intake(rc);
-						System.out.println("Welcome, " + rc.getName()+"!\n");
+						System.out.println("Welcome, " + rc.getName() + "!\n");
 					}
 				}
 				break;
