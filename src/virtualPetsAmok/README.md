@@ -1,6 +1,7 @@
 Virtual Pets AMOK!
 
 New to this version:
+
 	pets are dogs and cats, either of which may be organic or robotic
 	walk all dogs; decreasing the likelihood that organic dogs soil cages, while increasing happiness
 	clean dog cages; dirty cages influence dog health and happiness
